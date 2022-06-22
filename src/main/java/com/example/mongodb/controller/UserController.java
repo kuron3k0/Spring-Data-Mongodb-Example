@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {
@@ -25,9 +28,9 @@ public class UserController {
    }
 
    @PostMapping(value="/get")
-   public User readUserById(@RequestBody String id){
-
-      return userRepository.findByUserNameLike("T(java.lang.Runtime).getRuntime().exec(\"open -a Calculator\")");
+   public User readUserById(@RequestBody String id) throws UnsupportedEncodingException {
+      System.out.println(URLDecoder.decode(id, "utf-8"));
+      return userRepository.findByUserNameLike(URLDecoder.decode(id, "utf-8"));
    }
    
 
